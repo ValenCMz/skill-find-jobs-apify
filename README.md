@@ -82,13 +82,3 @@ Otros ejemplos:
 - `Exportame a CSV las ofertas de React en LinkedIn de la última semana`
 
 Antes de correr, el agente te muestra los parámetros (rol, ubicación, portales, cantidad) y una estimación de costo. Arrancá con pocos resultados (10–15 por portal) y escalá si hace falta.
-
-## Tus datos quedan locales
-
-El [.gitignore](.gitignore) excluye `cv.md`, los PDF, los `empleos-resultados-*.md` y la carpeta `jobs/`, así que tu CV y tus resultados no se suben si hacés commit.
-
-## Problemas comunes
-
-- **`apify` no aparece conectado en `opencode mcp list`:** la variable `APIFY_TOKEN` no está seteada en la terminal desde donde corriste `opencode`. Revisá el paso 3 y abrí una terminal nueva.
-- **Error 401 / unauthorized:** el token está mal copiado o lo regeneraste. Volvé a copiarlo de la consola de Apify.
-- **El agente no usa la skill:** asegurate de abrir `opencode` dentro de la carpeta del repo, o nombrala directamente: `usá la skill apify-jobs-data para...`.
