@@ -1,12 +1,12 @@
 # skill-find-jobs-apify
 
-Skill de Claude Code para buscar empleos en LinkedIn, Indeed, Glassdoor, Computrabajo y 20+ portales usando [Apify](https://apify.com). Junta las ofertas, saca duplicados y ofertas fantasma, y las rankea contra tu CV.
+Skill para [OpenCode](https://opencode.ai) que busca empleos en LinkedIn, Indeed, Glassdoor, Computrabajo y 20+ portales usando [Apify](https://apify.com). Junta las ofertas, saca duplicados y ofertas fantasma, y las rankea contra tu CV.
 
-La skill es `apify-jobs-data` de [apify/awesome-skills](https://github.com/apify/awesome-skills) y está en [.claude/skills/apify-jobs-data](.claude/skills/apify-jobs-data). Como vive dentro del repo, Claude Code la carga sola cuando abrís esta carpeta.
+La skill es `apify-jobs-data` de [apify/awesome-skills](https://github.com/apify/awesome-skills) y está en [.opencode/skills/apify-jobs-data](.opencode/skills/apify-jobs-data). Como vive dentro del repo, OpenCode la detecta sola cuando lo abrís en esta carpeta.
 
 ## Requisitos
 
-- [Claude Code](https://claude.com/claude-code) (CLI, app de escritorio o extensión de VS Code)
+- [OpenCode](https://opencode.ai/docs/) instalado y con un modelo configurado
 - Una cuenta de Apify (el plan gratis alcanza para probar: cada corrida cuesta centavos)
 
 ## 1. Clonar el repo
@@ -25,7 +25,7 @@ git clone https://github.com/ValenCMz/skill-find-jobs-apify.git
 
 ## 3. Configurar el token
 
-El repo trae un [.mcp.json](.mcp.json) que conecta Claude Code con el servidor MCP de Apify y lee el token de la variable de entorno `APIFY_TOKEN`. Solo tenés que definirla.
+El repo trae un [opencode.json](opencode.json) que conecta OpenCode con el servidor MCP de Apify y lee el token de la variable de entorno `APIFY_TOKEN` (`{env:APIFY_TOKEN}`). Solo tenés que definirla.
 
 **macOS / Linux (zsh):** agregalo a tu `~/.zshrc` (o `~/.bashrc` si usás bash):
 
@@ -49,24 +49,30 @@ Para chequear que quedó:
 echo $APIFY_TOKEN
 ```
 
-> Si usás la app de escritorio de Claude, cerrala del todo y volvé a abrirla después de setear la variable, para que la tome.
+## 4. Verificar la conexión
 
-## 4. Abrir Claude Code en la carpeta
+Desde la carpeta del repo:
 
 ```bash
 cd skill-find-jobs-apify
-claude
+opencode mcp list
 ```
 
-La primera vez te va a preguntar si confiás en el servidor MCP `apify` del proyecto: aceptá. Para verificar que está conectado, escribí `/mcp` y fijate que `apify` figure como conectado.
+`apify` tiene que aparecer como conectado. Si falla, `opencode mcp debug apify` muestra el detalle.
 
 ## 5. Usarlo
 
-Poné tu CV en la carpeta como `cv.md` (o PDF) y pedile a Claude algo como:
+Abrí OpenCode en la carpeta:
+
+```bash
+opencode
+```
+
+Poné tu CV en la carpeta como `cv.md` (o PDF) y pedile algo como:
 
 ```
-Buscame ofertas de full stack developer remoto en Argentina y España de las últimas 2 semanas
-y rankealas contra mi cv.md
+Usá la skill apify-jobs-data: buscame ofertas de full stack developer remoto en Argentina y España
+de las últimas 2 semanas y rankealas contra mi cv.md
 ```
 
 Otros ejemplos:
@@ -75,7 +81,7 @@ Otros ejemplos:
 - `Rango salarial de data engineer remoto en España`
 - `Exportame a CSV las ofertas de React en LinkedIn de la última semana`
 
-Antes de correr, Claude te muestra los parámetros (rol, ubicación, portales, cantidad) y una estimación de costo. Arrancá con pocos resultados (10–15 por portal) y escalá si hace falta.
+Antes de correr, el agente te muestra los parámetros (rol, ubicación, portales, cantidad) y una estimación de costo. Arrancá con pocos resultados (10–15 por portal) y escalá si hace falta.
 
 ## Tus datos quedan locales
 
@@ -83,6 +89,6 @@ El [.gitignore](.gitignore) excluye `cv.md`, los PDF, los `empleos-resultados-*.
 
 ## Problemas comunes
 
-- **`apify` no aparece en `/mcp` o falla la conexión:** la variable `APIFY_TOKEN` no está seteada en la terminal desde donde abriste `claude`. Revisá el paso 3 y abrí una terminal nueva.
+- **`apify` no aparece conectado en `opencode mcp list`:** la variable `APIFY_TOKEN` no está seteada en la terminal desde donde corriste `opencode`. Revisá el paso 3 y abrí una terminal nueva.
 - **Error 401 / unauthorized:** el token está mal copiado o lo regeneraste. Volvé a copiarlo de la consola de Apify.
-- **Claude no usa la skill:** asegurate de abrir `claude` dentro de la carpeta del repo, o mencioná la skill directamente: `usá la skill apify-jobs-data para...`.
+- **El agente no usa la skill:** asegurate de abrir `opencode` dentro de la carpeta del repo, o nombrala directamente: `usá la skill apify-jobs-data para...`.
