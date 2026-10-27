@@ -1,0 +1,10 @@
+# Datos personales / resultados de cada corrida (quedan solo en tu máquina)
+cv.md
+*.pdf
+empleos-resultados-*.md
+jobs/
+
+# Config local
+.env
+.claude/settings.local.json
+.DS_Store
